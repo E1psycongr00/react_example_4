@@ -1,35 +1,30 @@
-import React from 'react'
+import React, {useContext} from "react";
+import AuthContext from "../store/auth-context";
 import styled from "./Navigation.module.css";
 
-interface NavigationProps {
-    isLoggedIn?: boolean;
-    onLogout?: React.MouseEventHandler<HTMLButtonElement>;
-}
+const Navigation = () => {
+    const ctx = useContext(AuthContext);
+    return (
+        <nav className={styled.nav}>
+            <ul>
+                {ctx.isLoggedIn && (
+                    <li>
+                        <a href="/">Users</a>
+                    </li>
+                )}
+                {ctx.isLoggedIn && (
+                    <li>
+                        <a href="/">Admin</a>
+                    </li>
+                )}
+                {ctx.isLoggedIn && (
+                    <li>
+                        <button onClick={ctx.onLogout}>Logout</button>
+                    </li>
+                )}
+            </ul>
+        </nav>
+    );
+};
 
-
-const Navigation = (props:NavigationProps) => {
-  return (
-      <nav className={styled.nav}>
-          <ul>
-              {props.isLoggedIn && (
-                  <li>
-                      <a href="/">Users</a>
-                  </li>
-              )}
-              {props.isLoggedIn && (
-                  <li>
-                      <a href="/">Admin</a>
-                  </li>
-              )}
-              {props.isLoggedIn && (
-                  <li>
-                      <button onClick={props.onLogout}>Logout</button>
-                  </li>
-              )}
-          </ul>
-      </nav>
-  );
-}
-
-
-export default Navigation
+export default Navigation;
